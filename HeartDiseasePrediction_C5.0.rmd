@@ -1,0 +1,84 @@
+heart <- read.csv(file.choose(),sep=',')
+set.seed(1234)
+require(C50)
+require(caret)
+require(e1071)
+require(caTools)
+heart$target <- as.factor(heart$target)
+vars <- c("trestbps", "chol","thalach")
+str(heart[, c(vars, "target")])
+
+coba <- sample(1:nrow(heart), size = 100 ,replace=TRUE)
+train_data <- heart[ coba,]
+test_data  <- heart[-coba,]
+
+
+mod <- C5.0(x = train_data[,vars],y = train_data$target)
+mod
+
+
+summary(mod)
+plot(mod)
+
+hasil<- predict(object=mod, newdata=test_data, type="class")
+table(hasil, test_data$target)
+confusionMatrix(hasil,test_data$target)
+
+# sample 200
+
+heart <- read.csv(file.choose(),sep=',')
+set.seed(1234)
+require(C50)
+require(caret)
+require(e1071)
+require(ISLR)
+require(caTools)
+heart$target <- as.factor(heart$target)
+vars <- c("trestbps", "chol","thalach")
+str(heart[, c(vars, "target")])
+
+coba <- sample(1:nrow(heart), size = 200 ,replace=TRUE)
+splitdata<-sample.split(coba,SplitRatio = 0.5)
+train_data = subset (coba, splitdata == TRUE)
+test_data = subset(coba, splitdata == FALSE)
+
+mod <- C5.0(x = train_data[,vars],y = train_data$target)
+mod
+
+
+summary(mod)
+plot(mod)
+
+hasil<- predict(object=mod, newdata=test_data, type="class")
+table(hasil, test_data$target)
+confusionMatrix(hasil,test_data$target)
+
+# sample 300
+
+
+heart <- read.csv(file.choose(),sep=',')
+set.seed(1234)
+require(C50)
+require(caret)
+require(e1071)
+require(ISLR)
+require(caTools)
+heart$target <- as.factor(heart$target)
+vars <- c("trestbps", "chol","thalach")
+str(heart[, c(vars, "target")])
+
+coba <- sample(1:nrow(heart), size = 300 ,replace=TRUE)
+splitdata<-sample.split(coba,SplitRatio = 0.5)
+train_data = subset (coba, splitdata == TRUE)
+test_data = subset(coba, splitdata == FALSE)
+
+mod <- C5.0(x = train_data[,vars],y = train_data$target)
+mod
+
+
+summary(mod)
+plot(mod)
+
+hasil<- predict(object=mod, newdata=test_data, type="class")
+table(hasil, test_data$target)
+confusionMatrix(hasil,test_data$target)
